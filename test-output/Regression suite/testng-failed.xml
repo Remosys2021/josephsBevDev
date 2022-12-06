@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Regression suite]" guice-stage="DEVELOPMENT">
+  <test thread-count="5" name="LiquorCart(failed)">
+    <parameter name="browserName" value="GC"/>
+    <classes>
+      <class name="com.pms.test.HeaderValidation">
+        <methods>
+          <include name="HeaderValidation_AfterLogin"/>
+          <include name="getResult"/>
+          <include name="afterSuite"/>
+          <include name="tearDown"/>
+          <include name="launchUrl"/>
+          <include name="beforeSuiteSetup"/>
+        </methods>
+      </class> <!-- com.pms.test.HeaderValidation -->
+    </classes>
+  </test> <!-- LiquorCart(failed) -->
+</suite> <!-- Failed suite [Regression suite] -->
