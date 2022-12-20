@@ -143,24 +143,21 @@ public class BuyAProduct {
 
 		logger = extent.createTest("Shipping");
 
-
+		Thread.sleep(5000);
 		List<WebElement> listOfElements = this.navigation.getDriver().findElements(By.xpath("//*[@id=\"checkout-shipping-method-load\"]/table/tbody"));
 
 		for(int k=0;k<listOfElements.size();k++)
 		{
 			String listOfItemText = listOfElements.get(k).getText();
-			
-			System.out.println(listOfItemText);
-			Thread.sleep(5000);
-			
+
 			if(listOfItemText.contains("Delivery"))
 			{
 				WebElement radio = this.navigation.chooseElement(WebelementType.XPATH, "//*[@id=\"checkout-shipping-method-load\"]/table/tbody/tr[2]/td[1]/input");
-				Thread.sleep(3000);
+				Thread.sleep(8000);
 				radio.click();
-				
+
 				logger.log(Status.INFO, "Delivery selected");
-				
+
 				break;
 			}
 
@@ -205,8 +202,8 @@ public class BuyAProduct {
 		Thread.sleep(8000);
 
 		logger.log(Status.PASS, "Payment done!");
-		
-		WebElement orderID = this.navigation.chooseElement(WebelementType.XPATH, "//*[@id=\"maincontent\"]/div[3]/div/div[2]/p[1]");
+
+		WebElement orderID = this.navigation.chooseElement(WebelementType.CLASS_NAME, "order-number");
 		wait.until(ExpectedConditions.visibilityOf(orderID));
 		String orderIDtext = orderID.getText();
 
@@ -214,7 +211,7 @@ public class BuyAProduct {
 
 		logger.log(Status.INFO, " "+orderIDtext);
 
-		WebElement account = this.navigation.chooseElement(WebelementType.XPATH, "//*[@id=\"html-body\"]/div[3]/header/div[1]/div/ul/li[2]/a");
+		WebElement account = this.navigation.chooseElement(WebelementType.XPATH, "//*[@id=\"html-body\"]/div[2]/header/div[1]/div/ul/li[2]/a");
 		wait.until(ExpectedConditions.elementToBeClickable(account));
 		account.click();
 
@@ -234,7 +231,7 @@ public class BuyAProduct {
 		}
 
 		Thread.sleep(2000);
-		
+
 		WebElement signOut = this.navigation.chooseElement(WebelementType.XPATH, "//a[text()='Sign Out']");
 		signOut.click();
 
