@@ -81,7 +81,7 @@ public class Constants {
 	
 	public static final String XPATH_MERCHANT_HRS = "//div[@class='merchant-phoneHoursDeliveryOptions']//p";
 	
-	public static final String XPATH_SIGNOU_BTN ="//li[@class='link authorization-link']//a[text()='Sign Out']";
+	public static final String XPATH_SIGNOUT_BTN ="//li[@class='link authorization-link']//a[text()='Sign Out']";
 	
 	public static final String XPATH_PRODUCT_CATEGORY_LIST = "//*[@id=\"store.menu\"]/nav";
 	
@@ -159,6 +159,35 @@ public class Constants {
 	 * Accounts Module
 	 */
 	public static final String XPATH_SUCCESS_MSZ_ADDRESS_SAVED_ADDRESSBOOK = "//div[@class='page messages']//div[@class='messages']//div//div";
+	
+	/**
+	 * HOMEPAGE Locator paths
+	 * 
+	 */
+	public static final String XPATH_SIGNIN_BTN = "//a[text()='Sign In']";
+	public static final String XPATH_SEARCHBAR = "//input[@id='search']";
+	public static final String XPATH_SEARCHRESULTS_TEXT = "//div[@class='page-title-wrapper']//h1//span[contains(text(),'Search result')]";
+	
+	
+	/**
+	 * Product Page
+	 */
+	
+	public static final String XPATH_ADDTOCART_BTN = "//button//span[text()='Add to Cart']";
+	public static final String XPATH_CART_ITEMSLABEL = "//span[@class='counter-label']//span[text()='items']";
+	
+	
+	/**
+	 * CHECKOUT Page Locators
+	 */
+	
+	public static final String XPATH_ORDERTYPE_TEXT = "//li[@id='opc-shipping_method']//div[@class='checkout-shipping-method']//div[text()='Order Type']";
+	public static final String XPATH_STOREPICKUP_TEXT = "//div[@id='checkout-shipping-method-load']/table/tbody/tr//td[text()='Store Pickup']";
+	public static final String XPATH_ERRORTEXT_NONDELIVERABLE_ADDRESS = "//div[contains(text(),'Sorry')]";
+	
+	
+	
+	
 	
 	private Constants()
 	{

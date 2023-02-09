@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -14,7 +15,9 @@ import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.By.ByXPath;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.TakesScreenshot;
@@ -32,7 +35,9 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.log4testng.Logger;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -141,11 +146,11 @@ public class WebPageNavigation {
 
 		WebElement email = this.chooseElement(WebelementType.ID, "email");
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("email")));
-		email.sendKeys(properties.getProperty("Username"));
+		email.sendKeys(properties.getProperty("email"));
 
 		WebElement pass = this.chooseElement(WebelementType.ID, "pass");
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("pass")));
-		pass.sendKeys(properties.getProperty("Password"));
+		pass.sendKeys(properties.getProperty("password"));
 
 		WebElement SignIn = this.chooseElement(WebelementType.XPATH, "//button[@name='send']");
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@name='send']")));
@@ -389,6 +394,12 @@ public class WebPageNavigation {
 		wait.until(ExpectedConditions.elementToBeClickable(element));
 	}
 	
+	public void explicitWaitForElementVisibility(WebDriver driver, WebElement element) 
+	{
+		WebDriverWait wait = new WebDriverWait(driver, 40);
+		wait.until(ExpectedConditions.visibilityOf(element));
+	}
+	
 	public void storeSelection()
 	{
 		WebElement liquorStore = this.chooseElement(WebelementType.XPATH, Constants.XPATH_SHARON_LIQ_STORE);
@@ -401,4 +412,50 @@ public class WebPageNavigation {
 
 		this.getDriver().switchTo().window(childID);
 	}
+	
+	public void fluentWait(WebDriver driver, By locator)
+	{
+		Wait<WebDriver> fluentWait = new FluentWait<WebDriver>(driver)
+				.withTimeout(Duration.ofSeconds(60))
+				.pollingEvery(Duration.ofSeconds(1))
+				.ignoring(NoSuchElementException.class);
+		
+		fluentWait.until(ExpectedConditions.presenceOfElementLocated(locator));
+		
+
+	}
+	
+	
+	public By chooseLocator(LocatorType locatorType, String path) {
+
+		By locator;
+
+		switch (locatorType) {
+		case ID:
+			 By id = By.id(path);
+			 locator=id;
+			break;
+		case CLASS_NAME:
+			 By className = By.className(path);
+			 locator=className;
+			break;
+		case LINK_TEXT:
+			By linkText = By.linkText(path);
+			locator = linkText;
+			break;
+		case XPATH:
+			By xpath = By.xpath(path);
+			 locator=xpath;
+			break;
+		case CSS:
+			By cssSelector = By.cssSelector(path);
+			 locator=cssSelector;
+			break;
+		default:
+			throw new TestPmsException("Locator type not found");
+		}
+		return locator;
+	}
+
 }
+
